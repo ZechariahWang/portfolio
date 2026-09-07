@@ -97,6 +97,15 @@ The benchmark runs both controllers over the same 30 seeded episodes, so each on
 
 `.trim()
 
+const ur20Text = `
+UR20 Camera Sweep Controller is a ROS 2 (Humble) and MoveIt 2 control stack I developed for a Universal Robots UR20 industrial arm carrying a ZED stereo camera, built to run automated scanning passes over large wooden boards in a real production cell. The system was developed to be used with MoveIt's fake hardware or the physical robot through ur_robot_driver.
+
+The core routine, written in C++, executes a scripted sequence of free joint-space moves and straight-line Cartesian sweeps: park, a top pass over the board, a low side pass, and a final oblique view, with configurable heights, speeds, and pause times loaded from YAML. Safety is built into the pipeline with measured cell geometry (floor, ceiling, walls, mounting pillar) which is published as MoveIt collision objects, and every scripted TCP pose is checked against those bounds with margins before any motion starts. 
+
+Around the motion core sits an operator-facing interface layer. A command server exposes sweep, park, rest, pause, resume, and stop over rosbridge to a web app, with pause implemented as a latched flag that halts the trajectory and replans from the arm's current position on resume. The routine publishes "pose reached" markers so the web app can synchronize frame capture with each settled camera position, and a sim-state publisher fills in the status topics the real driver would normally provide, so the web app behaves identically in simulation and on hardware. Small calibration tests (wrist rotation, axis sweeps) round out the package for first-contact hardware bring-up.
+
+`.trim()
+
 // ============================================================================
 // CATEGORY SCREEN
 // ============================================================================
@@ -365,6 +374,16 @@ export const projectDetails: ProjectDetail[] = [
     technologies: ['Gymnasium', 'Stable-Baselines3', 'PyBullet'],
     image: '/projects/sac2.png',
     longDescription: pointNavigatorText,
+    githubUrl: '',
+    liveUrl: ''
+  },
+  {
+    id: 'ur20',
+    title: 'UR20 Camera Sweep Controller',
+    description: 'ROS 2 and MoveIt 2 control stack for a Universal Robots UR20 industrial arm with a ZED stereo camera.',
+    technologies: ['ROS2', 'MoveIt2', 'C++'],
+    image: '/projects/ur20.jpg',
+    longDescription: ur20Text,
     githubUrl: '',
     liveUrl: ''
   }

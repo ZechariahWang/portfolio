@@ -27,7 +27,7 @@ function StackedSection({ index, children }: { index: number; children: React.Re
   })
 
   return (
-    <div className="relative md:sticky md:top-0" style={{ zIndex: index + 1, height: '100dvh' }}>
+    <div className="relative md:sticky md:top-0" style={{ zIndex: index + 1, height: '100svh' }}>
       <motion.div style={{ y, height: '100%' }}>{children}</motion.div>
     </div>
   )

@@ -24,7 +24,7 @@ export default function ExperienceSection() {
   return (
     <section
       className="bg-background"
-      style={{ height: '100dvh', paddingTop: '3.5rem', overflow: 'hidden', position: 'relative' }}
+      style={{ height: '100svh', paddingTop: '3.5rem', overflow: 'hidden', position: 'relative' }}
     >
       {/* Mobile dynamic background */}
       <div

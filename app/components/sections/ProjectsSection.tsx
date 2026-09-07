@@ -141,7 +141,7 @@ function CategoryOverview({ onSelect }: { onSelect: (key: ProjectType) => void }
     <div style={{ position: 'relative' }}>
       <BackgroundImage src={projectsBackground} />
       <div className="overflow-x-hidden md:overflow-visible" style={{ position: 'relative', zIndex: 1 }}>
-      <div className="page-container pt-[6vh] pb-12 flex flex-col justify-center" style={{ minHeight: '100dvh' }}>
+      <div className="page-container pt-[6vh] pb-12 flex flex-col justify-center" style={{ minHeight: '100svh' }}>
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -265,7 +265,7 @@ function ProjectViewer({
   const hasMultiple = categoryProjects.length > 1
 
   return (
-    <div className="relative" style={{ minHeight: '100dvh', overflow: 'hidden' }}>
+    <div className="relative" style={{ minHeight: '100svh', overflow: 'hidden' }}>
       {/* Background follows the selected project */}
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
@@ -340,7 +340,7 @@ function ProjectViewer({
       )}
 
       <div
-        className="overflow-x-hidden md:overflow-visible md:min-h-dvh flex flex-col md:justify-center"
+        className="overflow-x-hidden md:overflow-visible md:min-h-svh flex flex-col md:justify-center"
         style={{ position: 'relative', zIndex: 10 }}
       >
       <AnimatePresence mode="wait" initial={false} custom={direction}>
@@ -492,7 +492,7 @@ export default function ProjectsSection({ onSelectProject }: { onSelectProject: 
   }
 
   return (
-    <section className="bg-background pt-14" style={{ minHeight: '100dvh', position: 'relative' }}>
+    <section className="bg-background pt-14" style={{ minHeight: '100svh', position: 'relative' }}>
       <AnimatePresence mode="wait" initial={false}>
         {category === null ? (
           <motion.div

@@ -19,7 +19,7 @@ export default function AboutSection() {
   return (
     <section
       className="bg-background pt-14"
-      style={{ height: '100dvh', overflow: 'hidden', position: 'relative' }}
+      style={{ height: '100svh', overflow: 'hidden', position: 'relative' }}
     >
       {/* Mobile dynamic background */}
       <div

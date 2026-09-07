@@ -125,7 +125,7 @@ body {
   /* Page hero — each route fills the viewport */
   .page-hero {
     height: 100vh;
-    height: 100dvh;
+    height: 100svh;
     overflow: hidden;
     display: flex;
     flex-direction: column;

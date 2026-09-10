@@ -46,7 +46,7 @@ export default function ExperienceSection() {
                 alt=""
                 fill
                 sizes="100vw"
-                priority
+                loading="eager"
                 style={{ objectFit: 'cover', filter: 'brightness(0.28) saturate(0.55)' }}
               />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--background) 0%, transparent 25%, transparent 65%, var(--background) 100%)' }} />
@@ -84,7 +84,7 @@ export default function ExperienceSection() {
                 alt=""
                 fill
                 sizes="58vw"
-                priority
+                loading="eager"
                 style={{ objectFit: 'cover', filter: 'brightness(0.38) saturate(0.65)' }}
               />
               {/* Fade right into site background */}

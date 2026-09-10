@@ -17,8 +17,15 @@ const photoMask =
   'linear-gradient(to bottom, transparent, black 18%, black 72%, transparent), linear-gradient(to right, transparent, black 32%, black 68%, transparent)'
 
 const HeroSection = () => {
-  // Entrance animations wait for the photo to decode so the first frame is smooth.
+  // Entrance animations wait for the photo bitmap and the display font, so no
+  // decode or font swap lands mid-animation on a cold load.
   const [loaded, setLoaded] = useState(false)
+  const startWhenReady = (img: HTMLImageElement) => {
+    const decoded = img.decode().catch(() => undefined)
+    Promise.all([decoded, document.fonts.ready]).then(() => {
+      requestAnimationFrame(() => setLoaded(true))
+    })
+  }
   const { scrollY } = useScroll()
   const exitShift = (v: number, factor: number) => {
     if (typeof window === 'undefined' || window.innerWidth < 768) return 0
@@ -58,7 +65,7 @@ const HeroSection = () => {
             fill
             priority
             sizes="(max-width: 768px) 100vw, 40vw"
-            onLoad={() => setLoaded(true)}
+            onLoad={(e) => startWhenReady(e.currentTarget)}
             onError={() => setLoaded(true)}
             className="object-cover grayscale hover:grayscale-0 transition-[filter] duration-500"
             style={{

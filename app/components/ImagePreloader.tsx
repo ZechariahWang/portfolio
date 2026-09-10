@@ -44,7 +44,7 @@ const siteImages: PreloadImage[] = [
 
 // Mounts after the page has loaded and the hero has finished animating, so
 // these decodes never compete with the first paint.
-const PRELOAD_DELAY_MS = 2000
+const PRELOAD_DELAY_MS = 3000
 
 export default function ImagePreloader() {
   const [ready, setReady] = useState(false)

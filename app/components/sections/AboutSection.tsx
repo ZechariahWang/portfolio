@@ -26,15 +26,15 @@ export default function AboutSection() {
         className="md:hidden"
         style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {activeImage && (
             <motion.div
               key={activeImage}
               initial={{ opacity: 0, scale: 1.06 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.3, ease: [0.65, 0, 0.35, 1] }}
-              style={{ position: 'absolute', inset: 0 }}
+              transition={{ duration: 0.4, ease: [0.65, 0, 0.35, 1] }}
+              style={{ position: 'absolute', inset: 0, willChange: 'transform, opacity' }}
             >
               <Image
                 src={activeImage}
@@ -64,15 +64,15 @@ export default function AboutSection() {
           zIndex: 0,
         }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {activeImage && (
             <motion.div
               key={activeImage}
               initial={{ opacity: 0, scale: 1.06 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.3, ease: [0.65, 0, 0.35, 1] }}
-              style={{ position: 'absolute', inset: 0 }}
+              transition={{ duration: 0.4, ease: [0.65, 0, 0.35, 1] }}
+              style={{ position: 'absolute', inset: 0, willChange: 'transform, opacity' }}
             >
               <Image
                 src={activeImage}

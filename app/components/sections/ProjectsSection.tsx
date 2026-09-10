@@ -267,14 +267,14 @@ function ProjectViewer({
   return (
     <div className="relative" style={{ minHeight: '100svh', overflow: 'hidden' }}>
       {/* Background follows the selected project */}
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence initial={false}>
         <motion.div
           key={project.image}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}
+          style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', willChange: 'opacity' }}
         >
           <BackgroundImage src={project.image} />
         </motion.div>

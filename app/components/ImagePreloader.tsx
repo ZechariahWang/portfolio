@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 type PreloadImage = { src: string; priority?: boolean }
@@ -41,7 +42,26 @@ const siteImages: PreloadImage[] = [
   { src: '/projects/sac2.png' },
 ]
 
+// Mounts after the page has loaded and the hero has finished animating, so
+// these decodes never compete with the first paint.
+const PRELOAD_DELAY_MS = 2000
+
 export default function ImagePreloader() {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    let timer = 0
+    const arm = () => { timer = window.setTimeout(() => setReady(true), PRELOAD_DELAY_MS) }
+    if (document.readyState === 'complete') arm()
+    else window.addEventListener('load', arm, { once: true })
+    return () => {
+      window.removeEventListener('load', arm)
+      window.clearTimeout(timer)
+    }
+  }, [])
+
+  if (!ready) return null
+
   return (
     <div
       aria-hidden="true"
@@ -56,14 +76,13 @@ export default function ImagePreloader() {
         overflow: 'hidden',
       }}
     >
-      {siteImages.map(({ src, priority }) => (
+      {siteImages.map(({ src }) => (
         <Image
           key={src}
           src={src}
           alt=""
           fill
           sizes="100vw"
-          priority={priority}
           style={{ objectFit: 'cover' }}
         />
       ))}

@@ -27,6 +27,10 @@ export default function SnapScroll() {
     const mq = window.matchMedia('(min-width: 768px)')
     let animating = false
     let cooldownUntil = 0
+    // Linux touchpads and hi-res wheels deliver a gesture as many tiny
+    // deltas, so accumulate across events instead of judging each one.
+    let pending = 0
+    let pendingReset: ReturnType<typeof setTimeout> | undefined
 
     const anchorTops = () =>
       SECTION_IDS
@@ -58,13 +62,18 @@ export default function SnapScroll() {
       if (insideActiveScrollable(e.target, e.deltaY)) return
 
       e.preventDefault()
-      if (animating || performance.now() < cooldownUntil) return
-      if (Math.abs(e.deltaY) < 4) return
+      if (animating || performance.now() < cooldownUntil) { pending = 0; return }
+      pending += e.deltaY
+      clearTimeout(pendingReset)
+      pendingReset = setTimeout(() => { pending = 0 }, 200)
+      if (Math.abs(pending) < 20) return
+      const direction = pending
+      pending = 0
 
       const y = window.scrollY
       const tops = anchorTops()
       const next =
-        e.deltaY > 0
+        direction > 0
           ? tops.find(top => top > y + 2)
           : [...tops].reverse().find(top => top < y - 2)
       if (next === undefined) return
@@ -72,7 +81,10 @@ export default function SnapScroll() {
     }
 
     document.addEventListener('wheel', onWheel, { passive: false })
-    return () => document.removeEventListener('wheel', onWheel)
+    return () => {
+      document.removeEventListener('wheel', onWheel)
+      clearTimeout(pendingReset)
+    }
   }, [])
 
   return null
